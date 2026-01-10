@@ -3,163 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Congratulations...</title>
+    <title>Verification Passed</title>
     <style>
-        /* Mengatur tampilan dasar halaman */
+        /* --- RESET & BASIC STYLE --- */
         body {
             background-color: #121212;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Menggunakan min-height agar aman saat di-scroll */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            overflow-x: hidden;
         }
 
         .container {
             padding: 20px;
-            max-width: 600px;
-            width: 100%;
-            box-sizing: border-box;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
         }
 
-        /* TIMER */
-        #countdown {
-            font-size: 5rem;
-            font-weight: bold;
-            line-height: 1;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-        
-        .timer-label {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 25px;
+        /* --- LOADING SCREEN (Muncul Awal) --- */
+        #loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* KOTAK INSTRUKSI */
-        .info-box {
-            background-color: #1e1e1e; /* Sedikit lebih terang dari background */
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            animation: slideUp 1s ease-out;
-        }
-
-        /* Judul Instruksi */
-        .info-title {
-            color: #4CAF50; /* Warna Hijau agar terlihat positif/aman */
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        /* Deskripsi singkat */
-        .info-desc {
-            font-size: 0.95rem;
-            color: #ddd;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid #4CAF50; /* Hijau */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
             margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #ccc;
+            letter-spacing: 1px;
+            animation: pulseText 1.5s infinite;
+        }
+
+        /* --- CONTENT SCREEN (Muncul setelah Loading) --- */
+        #content-screen {
+            display: none; /* Disembunyikan dulu */
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        /* Kartu Utama */
+        .card {
+            background: #1e1e1e;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 25px;
             line-height: 1.5;
         }
 
-        /* Langkah-langkah */
-        .steps-list {
+        /* List Langkah-langkah */
+        .steps {
             text-align: left;
-            display: inline-block;
-            margin: 0 auto 20px auto;
-            color: #fff;
-            font-size: 1rem;
-            line-height: 1.8;
+            background: #252525;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #ddd;
         }
+        .steps p { margin: 8px 0; }
 
-        /* Peringatan Penting (No Credit Card) */
-        .warning-box {
-            background-color: rgba(255, 193, 7, 0.1); /* Kuning transparan */
-            border: 1px solid #ffc107;
-            color: #ffc107; /* Warna Kuning Emas */
-            padding: 10px;
-            border-radius: 8px;
+        /* Peringatan No Credit Card */
+        .warning {
+            color: #FFC107; /* Kuning */
             font-weight: bold;
             font-size: 0.9rem;
+            margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border: 1px dashed #FFC107;
+            padding: 10px;
+            border-radius: 8px;
         }
 
-        /* Animasi Masuk */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* TOMBOL UTAMA */
+        .btn-action {
+            display: inline-block;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            animation: pulseBtn 2s infinite;
         }
 
-        /* Responsif HP */
-        @media (max-width: 600px) {
-            #countdown { font-size: 4rem; }
-            .info-box { padding: 15px; }
-            .steps-list { font-size: 0.9rem; }
-            .info-title { font-size: 1.1rem; }
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.6);
         }
+
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
+
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <!-- Timer -->
-        <div id="countdown">5</div>
-        <div class="timer-label">Redirecting in seconds...</div>
+        <!-- BAGIAN 1: LOADING SCREEN -->
+        <div id="loading-screen">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text">Checking Eligibility...</div>
+        </div>
 
-        <!-- AREA INFORMASI UTAMA -->
-        <div class="info-box">
-            <!-- Judul Menarik -->
-            <div class="info-title">Finish the Task to Get Your Reward!</div>
-            
-            <!-- Deskripsi -->
-            <div class="info-desc">
-                Simply answer a few questions or confirm your details to unlock the prize. 
-                <span style="color: #4CAF50; font-weight: bold;">It's 100% FREE.</span>
-            </div>
+        <!-- BAGIAN 2: KONTEN UTAMA (Muncul setelah loading) -->
+        <div id="content-screen">
+            <div class="card">
+                <span class="success-icon">🎉</span>
+                <div class="title">You are Eligible!</div>
+                <div class="subtitle">
+                    To claim your giveaway, please complete the final step on the next page. It is <strong>100% FREE</strong>.
+                </div>
 
-            <!-- Langkah-langkah -->
-            <div class="steps-list">
-                <div>🥇 Register your Email</div>
-                <div>🥈 Click "Continue"</div>
-                <div>🥉 Check your Email & Enjoy!</div>
-            </div>
+                <div class="steps">
+                    <p>🥇 Register your Email</p>
+                    <p>🥈 Click "Continue"</p>
+                    <p>🥉 Check your Email & Enjoy</p>
+                </div>
 
-            <!-- Peringatan Keamanan (PENTING untuk konversi) -->
-            <div class="warning-box">
-                NO Credit Card Required!<br>
-                <span style="font-size: 0.75rem; color: #ddd; text-transform: none;">Just complete the simple survey data.</span>
+                <div class="warning">
+                    ⚠️ No Credit Card Required!<br>
+                    <span style="font-size:0.7rem; color:#ccc; text-transform:none;">Just complete the simple survey.</span>
+                </div>
+
+                <!-- Tombol Manual -->
+                <a href="javascript:void(0)" onclick="goTarget()" class="btn-action">
+                    CONTINUE TO CLAIM ➤
+                </a>
             </div>
+            <p style="margin-top:15px; color:#555; font-size:0.8rem;">Safe & Secure Redirect</p>
         </div>
 
     </div>
 
     <script>
-        // --- KONFIGURASI ---
+        // --- KONFIGURASI URL ---
         const targetUrl = "http://laststep-us-now.netlify.app/?s1=bzone"; 
-        let timeleft = 5; 
-        // -------------------
+        // -----------------------
 
-        const timerElement = document.getElementById('countdown');
-        const downloadTimer = setInterval(function(){
-            timerElement.innerHTML = timeleft;
-            timeleft -= 1;
-            if(timeleft < 0){
-                clearInterval(downloadTimer);
-                window.location.href = targetUrl;
-            }
-        }, 1000);
+        // Logika Tampilan
+        const loadingScreen = document.getElementById('loading-screen');
+        const contentScreen = document.getElementById('content-screen');
+        const loadingText = document.getElementById('loading-text');
+
+        // Tahap 1: Loading Palsu (3 Detik)
+        setTimeout(() => {
+            loadingText.innerText = "Verifying..."; // Ganti teks di tengah jalan
+        }, 1500);
+
+        setTimeout(() => {
+            // Hilangkan loading, munculkan konten
+            loadingScreen.style.display = 'none';
+            contentScreen.style.display = 'block';
+        }, 3000); // 3000ms = 3 detik
+
+        // Fungsi Redirect saat tombol diklik
+        function goTarget() {
+            // Bisa tambahkan event tracking di sini jika perlu
+            window.location.href = targetUrl;
+        }
     </script>
-
+    
     <center>
         <!-- Histats Counter -->
         <div id="histats_counter"></div>
