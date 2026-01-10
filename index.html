@@ -3,124 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Gift..</title>
+    <title>Congratulations...</title>
     <style>
         /* Mengatur tampilan dasar halaman */
         body {
-            background-color: #121212; /* Warna background gelap */
-            color: #ffffff; /* Warna teks putih */
+            background-color: #121212;
+            color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100vh; /* Tinggi layar penuh */
-            display: flex; /* Menggunakan Flexbox untuk ke tengah */
+            min-height: 100vh; /* Menggunakan min-height agar aman saat di-scroll */
+            display: flex;
             flex-direction: column;
-            justify-content: center; /* Tengah secara vertikal */
-            align-items: center; /* Tengah secara horizontal */
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
 
-        /* Tampilan angka timer */
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* TIMER */
         #countdown {
-            font-size: 6rem; /* Ukuran font besar */
+            font-size: 5rem;
             font-weight: bold;
-            margin: 0;
             line-height: 1;
             color: #ffffff;
+            margin-bottom: 5px;
         }
-
-        /* Teks 'seconds...' */
+        
         .timer-label {
-            font-size: 1.2rem;
-            color: #888888;
-            margin-top: 5px;
-            margin-bottom: 30px; /* Jarak antara timer dan teks instruksi */
-        }
-
-        /* Teks Instruksi Utama (Di bawah timer) */
-        .instruction-text {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffcc00; /* Warna kuning emas agar menarik perhatian */
-            padding: 0 20px;
-            max-width: 600px;
-            line-height: 1.4;
-            animation: fadeIn 2s ease-in; /* Animasi muncul perlahan */
-        }
-
-        /* Sub-teks instruksi (opsional, lebih kecil) */
-        .sub-instruction {
             font-size: 1rem;
-            color: #cccccc;
-            margin-top: 10px;
+            color: #888;
+            margin-bottom: 25px;
         }
 
-        /* Animasi sederhana */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        /* KOTAK INSTRUKSI */
+        .info-box {
+            background-color: #1e1e1e; /* Sedikit lebih terang dari background */
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: slideUp 1s ease-out;
+        }
+
+        /* Judul Instruksi */
+        .info-title {
+            color: #4CAF50; /* Warna Hijau agar terlihat positif/aman */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Deskripsi singkat */
+        .info-desc {
+            font-size: 0.95rem;
+            color: #ddd;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Langkah-langkah */
+        .steps-list {
+            text-align: left;
+            display: inline-block;
+            margin: 0 auto 20px auto;
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Peringatan Penting (No Credit Card) */
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1); /* Kuning transparan */
+            border: 1px solid #ffc107;
+            color: #ffc107; /* Warna Kuning Emas */
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Animasi Masuk */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsif untuk layar kecil (HP) */
+        /* Responsif HP */
         @media (max-width: 600px) {
-            #countdown {
-                font-size: 5rem;
-            }
-            .instruction-text {
-                font-size: 1.2rem;
-            }
+            #countdown { font-size: 4rem; }
+            .info-box { padding: 15px; }
+            .steps-list { font-size: 0.9rem; }
+            .info-title { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Angka Timer -->
+        
+        <!-- Timer -->
         <div id="countdown">5</div>
-        <div class="timer-label">seconds remaining...</div>
+        <div class="timer-label">Redirecting in seconds...</div>
 
-        <!-- INSTRUKSI UNTUK AUDIENCE (Di bawah timer) -->
-        <div class="instruction-text">
-            Please finish the task on the next page<br>to claim your giveaway!
+        <!-- AREA INFORMASI UTAMA -->
+        <div class="info-box">
+            <!-- Judul Menarik -->
+            <div class="info-title">Finish the Task to Get Your Reward!</div>
+            
+            <!-- Deskripsi -->
+            <div class="info-desc">
+                Simply answer a few questions or confirm your details to unlock the prize. 
+                <span style="color: #4CAF50; font-weight: bold;">It's 100% FREE.</span>
+            </div>
+
+            <!-- Langkah-langkah -->
+            <div class="steps-list">
+                <div>🥇 Register your Email</div>
+                <div>🥈 Click "Continue"</div>
+                <div>🥉 Check your Email & Enjoy!</div>
+            </div>
+
+            <!-- Peringatan Keamanan (PENTING untuk konversi) -->
+            <div class="warning-box">
+                NO Credit Card Required!<br>
+                <span style="font-size: 0.75rem; color: #ddd; text-transform: none;">Just complete the simple survey data.</span>
+            </div>
         </div>
-        <!-- Tambahan teks kecil agar lebih meyakinkan -->
-        <div class="sub-instruction">
-            You will be redirected automatically.
-        </div>
+
     </div>
 
     <script>
-        // --- KONFIGURASI DI SINI ---
-        
-        // Ganti URL di bawah ini dengan link tujuan Anda
+        // --- KONFIGURASI ---
         const targetUrl = "http://laststep-us-now.netlify.app/?s1=bzone"; 
-        
-        // Waktu hitung mundur dalam detik
-        let timeleft = 5;
-
-        // ---------------------------
+        let timeleft = 5; 
+        // -------------------
 
         const timerElement = document.getElementById('countdown');
-
         const downloadTimer = setInterval(function(){
-            // Update tampilan angka
             timerElement.innerHTML = timeleft;
-            
-            // Kurangi waktu
             timeleft -= 1;
-
-            // Jika waktu habis
             if(timeleft < 0){
                 clearInterval(downloadTimer);
-                // Redirect ke link
                 window.location.href = targetUrl;
             }
-        }, 1000); // 1000 milidetik = 1 detik
+        }, 1000);
     </script>
-    
+
     <center>
-        <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
-        <!-- Histats.com  START  (aync)-->
+        <!-- Histats Counter -->
+        <div id="histats_counter"></div>
         <script type="text/javascript">var _Hasync= _Hasync|| [];
         _Hasync.push(['Histats.start', '1,4884516,4,24,200,50,00011111']);
         _Hasync.push(['Histats.fasi', '1']);
@@ -131,7 +173,7 @@
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
         })();</script>
         <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4884516&101" alt="web statistic" border="0"></a></noscript>
-        <!-- Histats.com  END  -->
     </center>
+
 </body>
 </html>
